@@ -18,8 +18,13 @@
 
 ## Install
 
+The source code is provided, so compilation is required.So you need configure svg-sprite-loader to load svg.
+
+if you want to use umd package, please copy from node_modules/vue3-marktext/lib/vue-marktext.umd.xxx.js to public/js(Static resources)
+
 ```shell
 npm install vue3-marktext --save
+npm install svg-sprite-loader svgo svgo-loader -D
 ```
 
 
@@ -30,7 +35,7 @@ npm install vue3-marktext --save
 
 ```js
 import VueMarktext from 'vue3-marktext'
-//you can use umd package,but you need copy from node_modules/vue-marktext.umd.xxx.js to public/js(Static resources)
+//you can use umd package,but you need copy from node_modules/vue3-marktext/lib/vue-marktext.umd.xxx.js to public/js(Static resources)
 //import VueMarktext from 'vue3-marktext/lib/vue-marktext.umd.js'
 createApp(App).use(VueMarktext)
 ```
@@ -52,6 +57,8 @@ export default defineComponent({
 The source code is provided, so compilation is required. Please configure the following information in the `vue.config.js` file
 
 ```js
+const { defineConfig } = require('@vue/cli-service')
+const { resolve } = require('path')
 module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: config => {
