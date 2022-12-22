@@ -1,15 +1,50 @@
 {
-  "name": "vue-markdown-muya",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue3-marktext",
+  "version": "0.1.2",
+  "main": "src/index.js",
+  "author": "WenyaoL",
+  "license": "MIT",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:lib": "vue-cli-service build --target lib --name vue-marktext --dest lib src/index.js",
     "lint": "vue-cli-service lint"
   },
+  "peerDependencies": {
+    "vue": "3.x"
+  },
   "dependencies": {
+    "@marktext/file-icons": "^1.0.6",
+    "assert": "^2.0.0",
+    "browserify-zlib": "^0.2.0",
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "dompurify": "^1.0.10",
+    "element-resize-detector": "^1.2.0",
+    "execall": "^3.0.0",
+    "file-icons-js": "^1.0.3",
+    "flowchart.js": "^1.11.3",
+    "fuzzaldrin": "^2.1.0",
+    "github-markdown-css": "^3.0.1",
+    "html-tags": "^3.0.0",
+    "joplin-turndown-plugin-gfm": "^1.0.12",
+    "katex": "^0.10.2",
+    "mermaid": "^8.0.0",
+    "path-browserify": "^1.0.1",
+    "popper.js": "^1.15.0",
+    "prismjs": "^1.16.0",
+    "snabbdom": "^3.3.1",
+    "snabbdom-to-html": "^7.0.0",
+    "snapsvg": "^0.5.1",
+    "stream-browserify": "^3.0.0",
+    "turndown": "^5.0.3",
+    "turndown-plugin-gfm": "^1.0.2",
+    "underscore": "^1.9.1",
+    "unsplash-js": "^7.0.15",
+    "vega": "^5.4.0",
+    "vega-embed": "^4.0.0",
+    "vega-lite": "^3.2.1",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -18,7 +53,13 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "file-loader": "^6.2.0",
+    "svg-sprite-loader": "^6.0.11",
+    "svgo": "^3.0.2",
+    "svgo-loader": "^3.0.3",
+    "url-loader": "^4.1.1",
+    "vue": "^3.2.45"
   },
   "eslintConfig": {
     "root": true,
