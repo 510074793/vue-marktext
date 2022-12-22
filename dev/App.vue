@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-
+import Muya from '../src/muya/lib/index';
 const props = defineProps()
 const myCom = ref()
 const getMarkdown = ()=>{
@@ -13,6 +13,20 @@ const focus = ()=>{
 const blur = ()=>{
     myCom.value.blurEditor()
 }
+
+const getEditor = ()=>{
+    let editor = myCom.value.getEditor()
+    console.log(editor);
+}
+
+onMounted(()=>{
+    let editor = myCom.value.getEditor()
+    if(editor instanceof Muya){
+        console.log(editor.getMarkdown());
+        editor.copyAsHtml()
+    }
+})
+
 </script>
 
 <template>
@@ -20,10 +34,16 @@ const blur = ()=>{
         <button @click="getMarkdown()">getMarkdown</button>
         <button @click="blur()">blurEditor</button>
         <button @click="focus()">focusEditor</button>
-        <vue-marktext ref="myCom"/>
+        <hr/>
+        <vue-marktext 
+        ref="myCom" 
+        :markdown="'## Hi!'"
+        :tabSize="2"/>
     </div>
 </template>
 
 <style scoped>
-
+.__editor-container>>>.__wapper-editor #ag-editor-id{
+    max-height: 300px;
+}
 </style>
