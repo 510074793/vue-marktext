@@ -5,6 +5,7 @@
   - [Use](#use)
     - [Global component](#global-component)
     - [Local component](#local-component)
+    - [config](#config)
   - [Show](#show)
   - [Component props options](#component-props-options)
     - [Example](#example)
@@ -28,6 +29,8 @@ npm install vue3-marktext --save
 
 ```js
 import VueMarktext from 'vue3-marktext'
+//you can use umd package,but you need copy from node_modules/vue-marktext.umd.xxx.js to public/js(Static resources)
+//import VueMarktext from 'vue3-marktext/lib/vue-marktext.umd.js'
 createApp(App).use(VueMarktext)
 ```
 
@@ -43,7 +46,51 @@ export default defineComponent({
 })
 ```
 
+### config
+
+The source code is provided, so compilation is required. Please configure the following information in the `vue.config.js` file
+
+```js
+module.exports = defineConfig({
+  transpileDependencies: true,
+  chainWebpack: config => {
+    const svgRule = config.module.rule('svg')
+    svgRule.clear()
+    config.module
+      .rule('svg-sprite').test(/\.svg$/)
+      .include.add(resolve(__dirname,'node_modules/vue3-marktext/src/')).end()
+      .use('svg-sprite-loader').loader('svg-sprite-loader').options({}).end()
+      .before('svg-sprite-loader')
+      .use('svgo-loader').loader('svgo-loader')
+      .options({
+        plugins: [
+          {
+            name: 'removeAttrs',
+            params: {
+              attrs: 'fill'
+            }
+          }
+        ]
+      }).end();
+     config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin')).end()
+  },
+  configureWebpack: {
+    resolve: {
+      fallback: {
+        fs: false,
+        path: require.resolve("path-browserify"),
+        zlib: require.resolve("browserify-zlib"),
+        stream: require.resolve("stream-browserify")
+      },
+    }
+  }
+})
+```
+
+
+
 ## Show
+
 ![show](./doc/imgs/show.png)
 
 ## Component props options
