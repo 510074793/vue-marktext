@@ -7,6 +7,7 @@
     - [Local component](#local-component)
     - [config](#config)
   - [Show](#show)
+  - [Shortcut key](#shortcut-key)
   - [Component props options](#component-props-options)
     - [Example](#example)
   - [Component defineExpose Method](#component-defineexpose-method)
@@ -92,6 +93,67 @@ module.exports = defineConfig({
 ## Show
 
 ![show](./doc/imgs/show.png)
+
+## Shortcut key
+
+```js
+// Edit menu
+    ['edit.undo', 'Ctrl+Z'],
+    ['edit.redo', 'Ctrl+Shift+Z'],
+    ['edit.cut', 'Ctrl+X'],
+    ['edit.copy', 'Ctrl+C'],
+    ['edit.paste', 'Ctrl+V'],
+    ['edit.copy-as-markdown', 'Ctrl+Shift+C'],
+    ['edit.copy-as-html', ''],
+    ['edit.paste-as-plaintext', 'Ctrl+Shift+V'],
+    ['edit.select-all', 'Ctrl+A'],
+    ['edit.duplicate', 'Ctrl+Alt+D'],
+    ['edit.create-paragraph', 'Ctrl+Shift+N'],
+    ['edit.delete-paragraph', 'Ctrl+Shift+D'],
+    ['edit.find', 'Ctrl+F'],
+    ['edit.find-next', 'F3'],
+    ['edit.find-previous', 'Shift+F3'],
+    ['edit.replace', 'Ctrl+R'],
+
+
+    // Paragraph menu
+    // NOTE: We cannot set a default value for heading size because `Ctrl+Alt` is an alias
+    //       to `AltGr` on Windows and `Ctrl+Shift+1` is mapped to the underlying character.
+    ['paragraph.heading-1', 'Ctrl+1'],
+    ['paragraph.heading-2', 'Ctrl+2'],
+    ['paragraph.heading-3', 'Ctrl+3'],
+    ['paragraph.heading-4', 'Ctrl+4'],
+    ['paragraph.heading-5', 'Ctrl+5'],
+    ['paragraph.heading-6', 'Ctrl+6'],
+    ['paragraph.upgrade-heading', 'Ctrl+Plus'],
+    ['paragraph.degrade-heading', 'Ctrl+-'],
+    ['paragraph.table', 'Ctrl+Shift+Y'],
+    ['paragraph.code-fence', 'Ctrl+Shift+K'],
+    ['paragraph.quote-block', 'Ctrl+Shift+Q'],
+    ['paragraph.math-formula', 'Ctrl+Alt+N'],
+    ['paragraph.html-block', 'Ctrl+Alt+H'],
+    ['paragraph.order-list', 'Ctrl+G'],
+    ['paragraph.bullet-list', 'Ctrl+H'],
+    ['paragraph.task-list', 'Ctrl+Alt+X'],
+    ['paragraph.loose-list-item', 'Ctrl+Alt+L'],
+    ['paragraph.paragraph', 'Ctrl+Shift+0'],
+    ['paragraph.horizontal-line', 'Ctrl+Shift+U'],
+    ['paragraph.front-ma  tter', 'Ctrl+Alt+Y'],
+
+    // Format menu
+    ['format.strong', 'Ctrl+B'],
+    ['format.emphasis', 'Ctrl+I'],
+    ['format.underline', 'Ctrl+U'],
+    ['format.superscript', ''],
+    ['format.subscript', ''],
+    ['format.highlight', 'Ctrl+Shift+H'],
+    ['format.inline-code', 'Ctrl+`'],
+    ['format.inline-math', 'Ctrl+Shift+M'],
+    ['format.strike', 'Ctrl+D'],
+    ['format.hyperlink', 'Ctrl+L'],
+    ['format.image', 'Ctrl+Shift+I'],
+    ['format.clear-format', 'Ctrl+Shift+R'],
+```
 
 ## Component props options
 
