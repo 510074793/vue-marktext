@@ -12,8 +12,8 @@ import QuickInsert from '../muya/lib/ui/quickInsert'
 import CodePicker from '../muya/lib/ui/codePicker'
 import EmojiPicker from '../muya/lib/ui/emojiPicker'
 import ImagePathPicker from '../muya/lib/ui/imagePicker'
-//import ImageSelector from '../muya/lib/ui/imageSelector'
-import ImageSelector from '../muya/lib/ui/imageSelector-browserify'
+import ImageSelector from '../muya/lib/ui/imageSelector'
+// import ImageSelector from '../muya/lib/ui/imageSelector-browserify'
 import FormatPicker from '../muya/lib/ui/formatPicker'
 import FrontMenu from '../muya/lib/ui/frontMenu'
 import ImageToolbar from '../muya/lib/ui/imageToolbar'
@@ -34,7 +34,7 @@ import '../assets/styles/printService.css'
 import ToolBar from './Toolbar.vue'
 
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['change', 'save'])
 const props = defineProps({
     markdown: {
         type: String,
@@ -73,6 +73,10 @@ const props = defineProps({
     baseDirPath: {
         type: String,
         default: './'
+    },
+    imgPicker: {
+        type: Function,
+        default: () => { }
     }
 
 })
@@ -100,7 +104,7 @@ const getEditor = () => {
     return editor
 }
 
-const exportFile = (content,type,fileName)=>{
+const exportFile = (content, type, fileName) => {
     let blob = new Blob([content], { type })
     //IE
     if ("msSaveOrOpenBlob" in navigator) {
@@ -113,7 +117,11 @@ const exportFile = (content,type,fileName)=>{
         link.click()
     }
 }
+const exportMarkDown = () => {
+    // exportFile(editor.getMarkdown(), 'application/txt', 'markdown.md')
+    emit('save', editor.getMarkdown())
 
+}
 const exportHtml = () => {
     let options = {
         autoNumberingHeadings: false,
@@ -134,13 +142,14 @@ const exportHtml = () => {
     }
     const htmlToc = getHtmlToc(editor.getTOC(), options)
     editor.exportStyledHTML({
-        title: '',
+        title: 'test',
         printOptimization: false,
         toc: htmlToc
     }).then(content => {
-        exportFile(content,'application/html','markdown.html')
+        exportFile(content, 'application/html', 'markdown.html')
+    }).catch(err => {
+        console.log(err);
     })
-    exportFile(editor.getMarkdown(),'application/txt','markdown.md')
 }
 
 const setMarkdownToEditor = ({ id, markdown, cursor }) => {
@@ -223,7 +232,7 @@ onMounted(() => {
     editor = new Muya(muyaElement.value, {
         markdown: props.markdown,
         disableHtml: !props.isHtmlEnabled,
-        imagePathPicker: null,
+        imagePathPicker: props.imgPicker,
         imageAction: imageAction.bind(this),
         isBrowserify: true,
         fontSize: props.fontSize,
@@ -265,7 +274,7 @@ defineExpose({
 
 <template>
     <div class="__editor-container">
-        <ToolBar @format="format" @paragraph="paragraph" @export="exportHtml" ref="toolComponent" />
+        <ToolBar @format="format" @paragraph="paragraph" @export="exportMarkDown" ref="toolComponent" />
         <div class="__wapper-editor" ref="wapperEditor">
             <div id="vue-markdown-muya" ref="muyaElement"></div>
         </div>
@@ -278,10 +287,29 @@ defineExpose({
 @import '../assets/styles/printService.css';
 
 
+.__editor-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.__wapper-editor {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+}
+
+#vue-markdown-muya {
+    width: 100%;
+    height: 100%;
+}
+
 .__wapper-editor>>>#ag-editor-id {
     box-shadow: 0 2px 3px 1px #ddd;
     max-height: 660px;
     overflow-y: auto;
+
+    max-width: 100% !important;
 }
 
 .__wapper-editor>>>#ag-editor-id img {

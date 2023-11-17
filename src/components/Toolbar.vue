@@ -27,20 +27,26 @@ import Paragraph from '../muya/lib/assets/icons/paragraph.svg'
 
 //export function icon
 import Download from '../assets/icons/element-plus/download.svg'
+import Save from '../assets/icons/element-plus/save.svg'
+
 
 const props = defineProps()
-const emit = defineEmits(['format','paragraph','export'])
+const emit = defineEmits(['format', 'paragraph', 'export', 'save'])
 
-const format = (type)=>{
-    emit('format',{type})
+const format = (type) => {
+    emit('format', { type })
 }
 
-const paragraph = (type)=>{
-    emit('paragraph',{type})
+const paragraph = (type) => {
+    emit('paragraph', { type })
 }
 
-const toExports = ()=>{
-    emit('export',{type:'styledHTML'})
+const toExports = () => {
+    emit('export')
+}
+
+const toSave = () => {
+    emit('save', { type: 'styledHTML' })
 }
 
 </script>
@@ -49,138 +55,144 @@ const toExports = ()=>{
     <div class="__wapper-editor-tool-bar">
         <ul class="format-tool">
             <li @click="format('strong')" title="strong">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatStrong.id" />
                 </svg>
             </li>
             <li @click="format('underline')" title="underline">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatUnderline.id" />
                 </svg>
             </li>
             <li @click="format('emphasis')" title="emphasis">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatEmphasis.id" />
                 </svg>
             </li>
             <li @click="format('strike')" title="delete-line">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatStrike.id" />
                 </svg>
             </li>
             <li @click="format('inline-code')" title="inline-code">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatCode.id" />
                 </svg>
             </li>
             <li @click="format('inline-math')" title="inline-math">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatMath.id" />
                 </svg>
             </li>
             <li @click="format('hyperlink')" title="hyperlink">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatLink.id" />
                 </svg>
             </li>
             <li @click="format('image')" title="image">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + FormatImage.id" />
                 </svg>
             </li>
         </ul>
         <ul class="paragraph-tool">
             <li @click="paragraph('table')" title="table">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Table.id" />
                 </svg>
             </li>
             <li @click="paragraph('quote-block')" title="quote-block">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Quote.id" />
                 </svg>
             </li>
             <li @click="paragraph('html-block')" title="html-block">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Html.id" />
                 </svg>
             </li>
             <li @click="paragraph('code-fence')" title="code-fence">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Code.id" />
                 </svg>
             </li>
             <li @click="paragraph('math-formula')" title="math-formula">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + MathIcon.id" />
                 </svg>
             </li>
             <li @click="paragraph('bullet-list')" title="bullet-list">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + BulletList.id" />
                 </svg>
             </li>
             <li @click="paragraph('order-list')" title="order-list">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + OrderList.id" />
                 </svg>
             </li>
             <li @click="paragraph('horizontal-line')" title="horizontal-line">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + HorizontalLine.id" />
                 </svg>
             </li>
-            <li @click="paragraph('paragraph')" title="H1">
-                <svg  aria-hidden="true">
+            <li @click="paragraph('paragraph')" title="clear-format">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Paragraph.id" />
                 </svg>
             </li>
             <li @click="paragraph('heading-1')" title="H1">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Header1.id" />
                 </svg>
             </li>
             <li @click="paragraph('heading-2')" title="H2">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Header2.id" />
                 </svg>
             </li>
             <li @click="paragraph('heading-3')" title="H3">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Header3.id" />
                 </svg>
             </li>
             <li @click="paragraph('heading-4')" title="H4">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Header4.id" />
                 </svg>
             </li>
             <li @click="paragraph('heading-5')" title="H5">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Header5.id" />
                 </svg>
             </li>
             <li @click="paragraph('heading-6')" title="H6">
-                <svg  aria-hidden="true">
+                <svg aria-hidden="true">
                     <use :xlink:href="'#' + Header6.id" />
                 </svg>
             </li>
-            <li class="__download" @click="toExports" title="export Html and Markdown File">
-                <svg  aria-hidden="true">
-                    <use :xlink:href="'#' + Download.id" />
+            <li class="__download" @click="toExports" title="save">
+                <svg aria-hidden="true">
+                    <use :xlink:href="'#' + Save.id" />
                 </svg>
             </li>
+            <!-- <li class="__save" @click="toSave" title="export Html File">
+                <svg aria-hidden="true">
+                    <use :xlink:href="'#' + Save.id" />
+                </svg>
+            </li> -->
         </ul>
     </div>
 </template>
 
 <style scoped>
 .__wapper-editor-tool-bar {
-    max-width: var(--editorAreaWidth);
     min-width: 400px;
-    min-height: 100%;
+    width: 100%;
+    height: auto;
     margin: 0 auto;
-
+    padding: 10px;
+    box-sizing: border-box;
     box-shadow: 0 0px 3px 1px #ddd;
 }
 
@@ -189,7 +201,11 @@ const toExports = ()=>{
     display: flex;
 }
 
-.__download{
+.__download {
+    justify-content: flex-end;
+    margin-left: auto;
+}
+.__save {
     justify-content: flex-end;
     margin-left: auto;
 }
@@ -201,12 +217,18 @@ ul li {
     user-select: none;
 }
 
-ul li svg{
+ul li svg {
     height: 20px;
     width: 20px;
     margin: 2px 4px;
     fill: currentColor;
     color: var(--iconColor);
-    stroke-width:2px
+    stroke-width: 2px
 }
+
+ul li:hover {
+    background: #ddd;
+    border-radius: 4px;
+}
+
 </style>
