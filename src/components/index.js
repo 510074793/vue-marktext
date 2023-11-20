@@ -1,4 +1,4 @@
-import VueMarktext from './components/VueMarktext.vue'
+import VueMarktext from './VueMarktext.vue'
 
 
 export const install = (app) => {

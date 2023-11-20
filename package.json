@@ -1,25 +1,26 @@
 {
   "name": "vue3-marktext",
   "version": "0.1.2",
-  "main": "src/index.js",
-  "author": "WenyaoL",
-  "license": "MIT",
-  "private": false,
+  "main": "main.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name vue-marktext --dest lib src/index.js",
     "lint": "vue-cli-service lint"
   },
   "peerDependencies": {
     "vue": "3.x"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
     "@marktext/file-icons": "^1.0.6",
     "assert": "^2.0.0",
+    "axios": "^1.6.2",
     "browserify-zlib": "^0.2.0",
     "core-js": "^3.8.3",
+    "crypto-js": "^4.2.0",
+    "dayjs": "^1.11.10",
     "dompurify": "^1.0.10",
+    "element-plus": "^2.4.2",
     "element-resize-detector": "^1.2.0",
     "execall": "^3.0.0",
     "file-icons-js": "^1.0.3",
@@ -28,8 +29,10 @@
     "github-markdown-css": "^3.0.1",
     "html-tags": "^3.0.0",
     "joplin-turndown-plugin-gfm": "^1.0.12",
+    "js-cookie": "^3.0.5",
     "katex": "^0.10.2",
     "mermaid": "^8.0.0",
+    "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
     "popper.js": "^1.15.0",
     "prismjs": "^1.16.0",
@@ -44,6 +47,8 @@
     "vega": "^5.4.0",
     "vega-embed": "^4.0.0",
     "vega-lite": "^3.2.1",
+    "vue-router": "^4.2.5",
+    "vue3-menus": "^1.1.2",
     "webfontloader": "^1.6.28"
   },
   "devDependencies": {
@@ -55,6 +60,8 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "file-loader": "^6.2.0",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
     "svg-sprite-loader": "^6.0.11",
     "svgo": "^3.0.2",
     "svgo-loader": "^3.0.3",

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import Muya from '../src/muya/lib/index';
-import { openFileDialog } from "./utils";
+import Muya from './muya/lib/index';
+import { openFileDialog } from "./util";
 import { rejects } from 'assert';
 
 const props = defineProps()
@@ -86,10 +86,11 @@ onMounted(() => {
 
 <template>
     <div id="app">
-        <div class="marktext-box">
+        <!-- <div class="marktext-box">
             <vue-marktext ref="myCom" :markdown="'## Hi!'" :textDirection="'left'" :tabSize="4" :imgPicker="imgPicker"
                 @save="saveFile" />
-        </div>
+        </div> -->
+        
 
     </div>
 </template>

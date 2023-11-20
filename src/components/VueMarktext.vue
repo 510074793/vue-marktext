@@ -305,7 +305,7 @@ defineExpose({
 }
 
 .__wapper-editor>>>#ag-editor-id {
-    box-shadow: 0 2px 3px 1px #ddd;
+    /* box-shadow: 0 2px 3px 1px #ddd; */
     max-height: 660px;
     overflow-y: auto;
 

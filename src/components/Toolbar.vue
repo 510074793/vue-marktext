@@ -26,7 +26,6 @@ import HorizontalLine from '../muya/lib/assets/icons/horizontal_line.svg'
 import Paragraph from '../muya/lib/assets/icons/paragraph.svg'
 
 //export function icon
-import Download from '../assets/icons/element-plus/download.svg'
 import Save from '../assets/icons/element-plus/save.svg'
 
 
@@ -193,7 +192,8 @@ const toSave = () => {
     margin: 0 auto;
     padding: 10px;
     box-sizing: border-box;
-    box-shadow: 0 0px 3px 1px #ddd;
+    /* box-shadow: 0 0px 3px 1px #ddd; */
+    border-bottom: 1px solid #ddd;
 }
 
 .__wapper-editor-tool-bar ul {
