@@ -1,51 +1,51 @@
 <script setup>
-import FormatStrong from '../muya/lib/assets/icons/format_strong.svg'
-import FormatUnderline from '../muya/lib/assets/icons/format_underline.svg'
-import FormatEmphasis from '../muya/lib/assets/icons/format_emphasis.svg'
-import FormatStrike from '../muya/lib/assets/icons/format_strike.svg'
-import FormatCode from '../muya/lib/assets/icons/code.svg'
-import FormatMath from '../muya/lib/assets/icons/format_math.svg'
-import FormatLink from '../muya/lib/assets/icons/format_link.svg'
-import FormatImage from '../muya/lib/assets/icons/format_image.svg'
+import FormatStrong from '../muya/lib/assets/icons/format_strong.svg';
+import FormatUnderline from '../muya/lib/assets/icons/format_underline.svg';
+import FormatEmphasis from '../muya/lib/assets/icons/format_emphasis.svg';
+import FormatStrike from '../muya/lib/assets/icons/format_strike.svg';
+import FormatCode from '../muya/lib/assets/icons/code.svg';
+import FormatMath from '../muya/lib/assets/icons/format_math.svg';
+import FormatLink from '../muya/lib/assets/icons/format_link.svg';
+import FormatImage from '../muya/lib/assets/icons/format_image.svg';
 
 //paragraph function icon
-import Header1 from '../muya/lib/assets/icons/header_1.svg'
-import Header2 from '../muya/lib/assets/icons/header_2.svg'
-import Header3 from '../muya/lib/assets/icons/header_3.svg'
-import Header4 from '../muya/lib/assets/icons/header_4.svg'
-import Header5 from '../muya/lib/assets/icons/header_5.svg'
-import Header6 from '../muya/lib/assets/icons/header_6.svg'
-import OrderList from '../muya/lib/assets/icons/order_list.svg'
-import BulletList from '../muya/lib/assets/icons/bullet_list.svg'
-import Table from '../muya/lib/assets/icons/table.svg'
-import Code from '../muya/lib/assets/icons/code.svg'
-import MathIcon from '../muya/lib/assets/icons/math.svg'
-import Quote from '../muya/lib/assets/icons/quote.svg'
-import Html from '../muya/lib/assets/icons/html.svg'
-import HorizontalLine from '../muya/lib/assets/icons/horizontal_line.svg'
-import Paragraph from '../muya/lib/assets/icons/paragraph.svg'
+import Header1 from '../muya/lib/assets/icons/header_1.svg';
+import Header2 from '../muya/lib/assets/icons/header_2.svg';
+import Header3 from '../muya/lib/assets/icons/header_3.svg';
+import Header4 from '../muya/lib/assets/icons/header_4.svg';
+import Header5 from '../muya/lib/assets/icons/header_5.svg';
+import Header6 from '../muya/lib/assets/icons/header_6.svg';
+import OrderList from '../muya/lib/assets/icons/order_list.svg';
+import BulletList from '../muya/lib/assets/icons/bullet_list.svg';
+import Table from '../muya/lib/assets/icons/table.svg';
+import Code from '../muya/lib/assets/icons/code.svg';
+import MathIcon from '../muya/lib/assets/icons/math.svg';
+import Quote from '../muya/lib/assets/icons/quote.svg';
+import Html from '../muya/lib/assets/icons/html.svg';
+import HorizontalLine from '../muya/lib/assets/icons/horizontal_line.svg';
+import Paragraph from '../muya/lib/assets/icons/paragraph.svg';
 
 //export function icon
-import Save from '../assets/icons/element-plus/save.svg'
+import Save from '@/icons/svg/save.svg';
 
 
-const props = defineProps()
-const emit = defineEmits(['format', 'paragraph', 'export', 'save'])
+const props = defineProps();
+const emit = defineEmits(['format', 'paragraph', 'export', 'save']);
 
 const format = (type) => {
-    emit('format', { type })
-}
+    emit('format', { type });
+};
 
 const paragraph = (type) => {
-    emit('paragraph', { type })
-}
+    emit('paragraph', { type });
+};
 
 const toExports = () => {
-    emit('export')
-}
+    emit('export');
+};
 
 const toSave = () => {
-    emit('save', { type: 'styledHTML' })
+    emit('save', { type: 'styledHTML' });
 }
 
 </script>
@@ -194,6 +194,7 @@ const toSave = () => {
     box-sizing: border-box;
     /* box-shadow: 0 0px 3px 1px #ddd; */
     border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
 }
 
 .__wapper-editor-tool-bar ul {
@@ -205,6 +206,7 @@ const toSave = () => {
     justify-content: flex-end;
     margin-left: auto;
 }
+
 .__save {
     justify-content: flex-end;
     margin-left: auto;
@@ -230,5 +232,4 @@ ul li:hover {
     background: #ddd;
     border-radius: 4px;
 }
-
 </style>

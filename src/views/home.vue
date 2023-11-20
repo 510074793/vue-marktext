@@ -1,5 +1,3 @@
-<!-- @format -->
-
 <template>
   <div class="home">
     <div class="left">
@@ -16,7 +14,9 @@
               个人中心
             </div>
             <div @click="exitBlog">
-              <!-- <svg-icon name="exit" style="width: 14px;height: 14px;"></svg-icon> -->
+              <svg aria-hidden="true" style="width: 14px; height: 14px;">
+                <use :xlink:href="'#' + Exit.id" />
+              </svg>
               退出登录
             </div>
           </div>
@@ -36,7 +36,9 @@
           <div class="add-box">
             <div class="folder-box" @click="addCategory">
               <div class="add-folder">
-                <!-- <svg-icon name="addfolder" style="width: 20px; height: 20px"></svg-icon> -->
+                <svg aria-hidden="true" style="width: 20px; height: 20px;color:#ffffff">
+                  <use :xlink:href="'#' + Addfolder.id" />
+                </svg>
               </div>
               新建文件夹
             </div>
@@ -66,9 +68,13 @@
           :class="[item.id == currentSelect.id ? 'left-box-item-select' : '']" @click="clickItem(item)" @click.stop
           @contextmenu="rightClick($event, item)">
           <div class="item-header">
-          <!-- <div>图标</div> -->
-            <!-- <svg-icon :name="item.type == 'category' ? 'folder' : 'document'"
-                        style="width: 20px; height: 20px; margin-right: 10px"></svg-icon> -->
+            <svg aria-hidden="true" style="width: 20px; height: 20px; margin-right: 10px; color: #fcb951;"
+              v-if="item.type == 'category'">
+              <use :xlink:href="'#' + Folder.id" />
+            </svg>
+            <svg aria-hidden="true" style="width: 20px; height: 20px; margin-right: 10px; color: #88b6ff;" v-else>
+              <use :xlink:href="'#' + Word.id" />
+            </svg>
 
             <el-input v-if="item.rename" class="item-title" id="input" ref="inputr" v-model="item.name"
               @blur="renameClick"></el-input>
@@ -104,7 +110,9 @@
 
     </div>
     <div v-else style="display: flex;justify-content: center;align-items: center;width: 100%;">
-      <!-- <svg-icon name="folder1" style="width: 80px;height: 80px;"></svg-icon> -->
+      <svg aria-hidden="true" style="width: 80px;height: 80px;color: #cdcdcd;">
+        <use :xlink:href="'#' + Folder1.id" />
+      </svg>
     </div>
 
 
@@ -154,16 +162,20 @@ import {
   articleDelete,
 } from '@/api';
 import { Plus } from '@element-plus/icons-vue';
-import axios from 'axios';
 
 import { nextTick, onMounted, reactive, ref, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
-import { removeToken } from "@/util/cookies"
+import { removeToken } from "@/util/cookies";
 import { menusEvent } from 'vue3-menus';
-import headSrc from "@/assets/images/head.png"
+import headSrc from "@/assets/images/head.png";
 import { ElMessage } from "element-plus";
-import Muya from '@/muya/lib/index';
 import { openFileDialog } from "@/util";
+
+import Exit from "@/icons/svg/exit.svg";
+import Addfolder from "@/icons/svg/addfolder.svg";
+import Folder from "@/icons/svg/folder.svg";
+import Folder1 from "@/icons/svg/folder1.svg";
+import Word from "@/icons/svg/word.svg";
 
 
 const { appContext } = getCurrentInstance();
@@ -171,14 +183,14 @@ const { appContext } = getCurrentInstance();
 const router = useRouter();
 
 const showAdd = ref(false);
-const showHead = ref(false)
-const myCom = ref()
+const showHead = ref(false);
+const myCom = ref();
 
 const cover = reactive({
   show: false,
   src: "",
   type: "链接"
-})
+});
 
 const treeData = ref([]);
 const currentSelect = reactive({
@@ -191,8 +203,6 @@ const currentSelect = reactive({
   item: null, // 当前选择的item所有信息
 });
 const inputr = ref(null);
-
-const onArticleChange = ref(false)
 
 const articleData = reactive({
   id: '',
@@ -336,7 +346,7 @@ const clickItem = (item) => {
     //  处理双击事件...
     currentSelect.type = item.type;
     currentSelect.id = item.id;
-    currentSelect.item = item
+    currentSelect.item = item;
     if (item.type == 'category') {
       currentSelect.pid = item.id;
       currentSelect.title = item.name;
@@ -349,7 +359,7 @@ const clickItem = (item) => {
   }
   setTimeout(function () {
     if (clickTimes.value === 1) {
-      currentSelect.item = item
+      currentSelect.item = item;
       clickTimes.value = 0;
       //  处理单击事件...
       currentSelect.type = item.type;
@@ -541,14 +551,14 @@ const saveTitle = async () => {
     title: articleData.title,
   });
   if (res) {
-    currentSelect.item.name = articleData.title
+    currentSelect.item.name = articleData.title;
   } else {
-    articleData.title = currentSelect.item.name
+    articleData.title = currentSelect.item.name;
   }
-}
+};
 
 const saveArticle = async () => {
-  onSave(myCom.value.getMarkdown())
+  onSave(myCom.value.getMarkdown());
 };
 
 const addArticle = async () => {
@@ -646,7 +656,7 @@ const addCategory = async () => {
 };
 
 const imgPicker = async () => {
-  const fileData = await openFileDialog('image/*', true, 300, false, false, "选择图片")
+  const fileData = await openFileDialog('image/*', true, 300, false, false, "选择图片");
   if (fileData) {
     const url = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -685,13 +695,13 @@ const imgPicker = async () => {
       formData.append('file', fileData[0]);
 
       xhr.send(formData);
-    })
+    });
 
-    return url
+    return url;
   }
 
-  return ''
-}
+  return '';
+};
 
 
 const onSave = async (v) => {
@@ -701,47 +711,47 @@ const onSave = async (v) => {
     format: 'markdown'
   });
   if (res) {
-    ElMessage.success("已保存")
+    ElMessage.success("已保存");
   }
-}
+};
 
 const addCover = () => {
   // 本地上传，直接放链接，裁剪上传
-  cover.show = true
-}
+  cover.show = true;
+};
 
 const onUploadSuccess = async (e) => {
-  cover.src = e.data.links.url
-  cover.show = false
-  saveCover()
-}
+  cover.src = e.data.links.url;
+  cover.show = false;
+  saveCover();
+};
 const onUploadError = () => {
-  cover.src = ''
-}
+  cover.src = '';
+};
 
 const saveCover = async () => {
-  cover.show = false
+  cover.show = false;
   const res = await articleEdit({
     id: articleData.id,
     cover: cover.src
   });
   if (res) {
-    ElMessage.success("设置成功")
+    ElMessage.success("设置成功");
   }
-}
+};
 
 const goHome = () => {
-  showHead.value = false
+  showHead.value = false;
   window.open('https://clm.show', '_blank');
-}
+};
 
 const exitBlog = () => {
-  removeToken()
-  router.push({ 'path': '/index' })
-}
+  removeToken();
+  router.push({ 'path': '/index' });
+};
 
 onMounted(() => {
- 
+
   getCategoryData();
 });
 </script>
@@ -895,8 +905,8 @@ onMounted(() => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
-    padding: 10px;
+    padding-left: 1px;
+    border-left: 1px solid #ddd;
   }
 
   .tools {
@@ -906,6 +916,7 @@ onMounted(() => {
     justify-content: space-between;
     padding: 10px;
     gap: 20px;
+
   }
 
   :deep(.tools) {
@@ -1017,6 +1028,5 @@ onMounted(() => {
   box-sizing: border-box;
   min-width: 460px;
   height: 100%;
-  border: 1px solid #DDD;
 }
 </style>

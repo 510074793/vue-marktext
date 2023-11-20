@@ -195,11 +195,6 @@ body {
   padding: 8px 6px;
 }
 
-input.el-input__inner {
-  background: var(--inputBgColor);
-  border: 1px solid var(--editorColor10);
-  color: var(--editorColor80);
-}
 
 .el-input-number.is-controls-right span.el-input-number__decrease,
 .el-input-number.is-controls-right span.el-input-number__increase {
@@ -250,24 +245,12 @@ div.el-tab-pane {
 }
 .button:hover,
 .muya-button:hover,
-.el-button:hover {
-  color: var(--buttonFontColorHover);
-  background: var(--buttonBgColorHover);
-  border: var(--buttonBorderHover);
-}
+
 .button:active,
 .muya-button:active,
-.el-button:active {
-  color: var(--buttonFontColorActive);
-  background: var(--buttonBgColorActive);
-  border: var(--buttonBorderActive);
-}
+
 .button:focus,
 .muya-button:focus,
-.el-button:focus {
-  outline: none;
-  border: var(--buttonFocusBorder);
-}
 
 .button-primary,
 .muya-button-primary,
