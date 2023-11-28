@@ -87,7 +87,7 @@ let editor = undefined
 const muyaElement = ref(null)
 const wapperEditor = ref(null)
 const toolComponent = ref(null)
-let keybinder = new MuyaKeybinder()
+// let keybinder = new MuyaKeybinder()
 let commandManager = new CommandManager()
 
 //Method
