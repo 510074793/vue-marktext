@@ -1113,7 +1113,7 @@ onMounted(() => {
 #sample {
   width: 100%;
   box-sizing: border-box;
-  min-width: 460px;
+  // min-width: 460px;
   height: 100%;
 }
 
@@ -1156,10 +1156,11 @@ onMounted(() => {
     margin-left: 0;
   }
 
-  // .setting-content {
-  //   left: -20px !important;
-  //   transition: all 0.3s;
-  // }
+  .setting-content {
+    // left: 0px !important;
+    transition: all 0.3s;
+    bottom: 140px !important;
+  }
 }
 
 

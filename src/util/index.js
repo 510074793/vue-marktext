@@ -167,6 +167,19 @@ export const formatDate = (time) => {
 }
 
 
+/** 判断当前时间是否  */
+export const diffTime = (time) => {
+	if (!checkDate(time)) {
+		return false
+	}
+	const current = dayjs()
+	const t = dayjs(time).diff(current, "minute")
+	if (t < 10) {
+		return false
+	}
+	return true
+}
+
 /**
  * 打开文件夹
  */

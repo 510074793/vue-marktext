@@ -5,6 +5,7 @@ export const constantRoutes = [
 
   {
     path: '/index',
+    name: 'index',
     component: () => import("@/views/index.vue"),
   },
   {
@@ -40,14 +41,14 @@ export const constantRoutes = [
   //     hidden: true
   //   }
   // },
-  // {
-  //   path: "/:pathMatch(.*)*", // 必须将 'ErrorPage' 路由放在最后
-  //   redirect: "/404",
-  //   name: "ErrorPage",
-  //   meta: {
-  //     hidden: true
-  //   }
-  // }
+  {
+    path: "/:pathMatch(.*)*", // 必须将 'ErrorPage' 路由放在最后
+    redirect: "/index",
+    name: "ErrorPage",
+    meta: {
+      hidden: true
+    }
+  }
 ]
 
 const router = createRouter({

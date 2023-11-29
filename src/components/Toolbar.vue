@@ -93,8 +93,6 @@ const toSave = () => {
                     <use :xlink:href="'#' + FormatImage.id" />
                 </svg>
             </li>
-        </ul>
-        <ul class="paragraph-tool">
             <li @click="paragraph('table')" title="table">
                 <svg aria-hidden="true">
                     <use :xlink:href="'#' + Table.id" />
@@ -115,6 +113,10 @@ const toSave = () => {
                     <use :xlink:href="'#' + Code.id" />
                 </svg>
             </li>
+        </ul>
+        <ul class="paragraph-tool">
+            
+            
             <li @click="paragraph('math-formula')" title="math-formula">
                 <svg aria-hidden="true">
                     <use :xlink:href="'#' + MathIcon.id" />
@@ -186,7 +188,7 @@ const toSave = () => {
 
 <style scoped>
 .__wapper-editor-tool-bar {
-    min-width: 400px;
+    /* min-width: 400px; */
     width: 100%;
     height: auto;
     margin: 0 auto;
