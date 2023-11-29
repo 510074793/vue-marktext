@@ -44,16 +44,17 @@ const loginClick = async () => {
 .login {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  position: relative;
 
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
 
   .login-box {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 240px;
     height: 180px;
     display: flex;

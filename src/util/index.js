@@ -166,6 +166,15 @@ export const formatDate = (time) => {
   return time ? dayjs(new Date(time)).format("YYYY-MM-DD") : "N/A"
 }
 
+/** 判断时间格式  YYYY-MM-DD */
+export const checkDate = (dateStr) => {
+  let a = /^(\d{4})-(\d{2})-(\d{2})$/
+  if (!a.test(dateStr)) {
+    return false
+  } else {
+    return true
+  }
+}
 
 /** 判断当前时间是否  */
 export const diffTime = (time) => {
