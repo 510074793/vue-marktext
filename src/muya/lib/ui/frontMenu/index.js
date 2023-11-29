@@ -162,8 +162,12 @@ class FrontMenu extends BaseFloat {
         contentState.deleteParagraph()
         break
       }
-      case 'new': {
+      case 'after': {
         contentState.insertParagraph('after', '', true)
+        break
+      }
+      case 'before': {
+        contentState.insertParagraph('before', '', true)
         break
       }
       case 'turnInto':

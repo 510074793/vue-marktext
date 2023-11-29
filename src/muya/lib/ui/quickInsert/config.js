@@ -38,13 +38,11 @@ export const quickInsertObj = {
     title: 'Paragraph',
     subTitle: 'Lorem Ipsum is simply dummy text',
     label: 'paragraph',
-    shortCut: `${COMMAND_KEY}+0`,
     icon: paragraphIcon
   }, {
     title: 'Horizontal Line',
     subTitle: '---',
     label: 'hr',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+-`,
     icon: hrIcon
   }, {
     title: 'Front Matter',
@@ -94,13 +92,11 @@ export const quickInsertObj = {
     title: 'Table Block',
     subTitle: '|Lorem | Ipsum is simply |',
     label: 'table',
-    shortCut: `${SHIFT_KEY}+${COMMAND_KEY}+T`,
     icon: newTableIcon
   }, {
     title: 'Display Math',
     subTitle: '$$ Lorem Ipsum is simply $$',
     label: 'mathblock',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+M`,
     icon: mathblockIcon
   }, {
     title: 'HTML Block',
@@ -112,32 +108,27 @@ export const quickInsertObj = {
     title: 'Code Block',
     subTitle: '```java Lorem Ipsum is simply ```',
     label: 'pre',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+C`,
     icon: codeIcon
   }, {
     title: 'Quote Block',
     subTitle: '>Lorem Ipsum is simply ...',
     label: 'blockquote',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+Q`,
     icon: quoteIcon
   }],
   'list block': [{
     title: 'Order List',
     subTitle: '1. Lorem Ipsum is simply ...',
     label: 'ol-order',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+O`,
     icon: orderListIcon
   }, {
     title: 'Bullet List',
     subTitle: '- Lorem Ipsum is simply ...',
     label: 'ul-bullet',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+U`,
     icon: bulletListIcon
   }, {
     title: 'To-do List',
     subTitle: '- [x] Lorem Ipsum is simply ...',
     label: 'ul-task',
-    shortCut: `${OPTION_KEY}+${COMMAND_KEY}+X`,
     icon: todoListIcon
   }],
   diagram: [{

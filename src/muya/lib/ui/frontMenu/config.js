@@ -2,7 +2,7 @@ import copyIcon from '../../assets/pngicon/copy/2.png'
 import newIcon from '../../assets/pngicon/paragraph/2.png'
 import deleteIcon from '../../assets/pngicon/delete/2.png'
 import turnIcon from '../../assets/pngicon/turninto/2.png'
-import { isOsx } from '../../config'
+// import { isOsx } from '../../config'
 import { quickInsertObj } from '../quickInsert/config'
 
 const wholeSubMenu = Object.keys(quickInsertObj).reduce((acc, key) => {
@@ -10,27 +10,27 @@ const wholeSubMenu = Object.keys(quickInsertObj).reduce((acc, key) => {
   return [...acc, ...items]
 }, [])
 
-const COMMAND_KEY = isOsx ? '⌘' : '⌃'
 
 export const menu = [{
   icon: copyIcon,
   label: 'duplicate',
   text: 'Duplicate',
-  shortCut: `⇧${COMMAND_KEY}P`
 }, {
   icon: turnIcon,
   label: 'turnInto',
   text: 'Turn Into'
 }, {
   icon: newIcon,
-  label: 'new',
-  text: 'New Paragraph',
-  shortCut: `⇧${COMMAND_KEY}N`
+  label: 'after',
+  text: 'New After',
+},{
+  icon: newIcon,
+  label: 'before',
+  text: 'New Before',
 }, {
   icon: deleteIcon,
   label: 'delete',
   text: 'Delete',
-  shortCut: `⇧${COMMAND_KEY}D`
 }]
 
 export const getLabel = block => {
