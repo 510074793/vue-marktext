@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from "@/router"
+import store from "@/store"
 
 import VueMarktext from './components'
 
@@ -24,7 +25,7 @@ app.use(Vue3Menus)
 app.use(VueMarktext)
 app.use(ElementPlus)
 
-
+app.use(store)
 app.use(router);
 
 app.mount('#app')

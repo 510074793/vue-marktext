@@ -1,8 +1,10 @@
 <template>
-  <div class="home">
+  <div class="app-container" :class="layoutClasses">
+    <div v-if="layoutClasses.mobile && layoutClasses.openLeftContent" class="drawer-bg" @click="handleClickOutside" />
+
     <div class="left">
       <div class="left-head">
-        <el-popover placement="bottom-start" :width="160" trigger="click" v-model:visible="showHead">
+        <el-popover placement="bottom-start" :width="110" trigger="click" v-model:visible="showHead">
           <template #reference>
             <img :src="headSrc" alt=" ">
           </template>
@@ -56,7 +58,7 @@
       <div class="left-box">
         <div class="left-box-back" v-if="currentSelect.activate">
           <div class="box" @click="backClick">
-            <el-icon>
+            <el-icon :size="18">
               <ArrowLeft />
             </el-icon>
           </div>
@@ -82,40 +84,50 @@
               {{ item.name }}
             </div>
 
-            <el-icon color="#a9b2c2">
+            <!-- <el-icon color="#a9b2c2">
               <MoreFilled />
-            </el-icon>
+            </el-icon> -->
           </div>
-          <div class="item-footer">时间</div>
+          <div class="item-footer">{{ item.time }}</div>
         </div>
       </div>
     </div>
-    <div class="main" v-if="currentSelect.type == 'article'">
-      <div class="tools">
-        <el-input :border="false" v-model="articleData.title" style="flex: 1;"
-          input-style="font-weight: 600;font-size:20px;letter-spacing: 1px;" @blur="saveTitle" @keydown.enter="saveTitle">
-        </el-input>
-        <div>
-          <el-button @click="addCover" type="success">图片</el-button>
-          <el-button @click="updateStatus" type="warning">{{
-            articleData.status == 1 ? '已发布' : '待发布'
-          }}</el-button>
-          <el-button @click="saveArticle" type="primary">保存</el-button>
+    <div class="setting-content" @click="switchLectContent">
+      <el-icon v-if="layoutClasses.hideLeftContent" :size="10">
+        <ArrowRight />
+      </el-icon>
+      <el-icon v-else :size="10">
+        <ArrowLeft />
+      </el-icon>
+    </div>
+    <div class="right">
+      <div v-if="currentSelect.type == 'article'">
+        <div class="tools">
+          <el-input :border="false" v-model="articleData.title" style="flex: 1;"
+            input-style="font-weight: 600;font-size:20px;letter-spacing: 1px;" @blur="saveTitle"
+            @keydown.enter="saveTitle">
+          </el-input>
+          <div>
+            <el-button @click="addCover" type="success">图片</el-button>
+            <el-button @click="updateStatus" type="warning">{{
+              articleData.status == 1 ? '已发布' : '待发布'
+            }}</el-button>
+            <el-button @click="saveArticle" type="primary">保存</el-button>
+          </div>
+        </div>
+        <div id="sample">
+          <vue-marktext style="width: 100%;" ref="myCom" :markdown="articleData.content" :textDirection="'left'"
+            :tabSize="4" :imgPicker="imgPicker" @save="saveArticle" />
         </div>
       </div>
-      <div id="sample">
-        <vue-marktext style="width: 100%;" ref="myCom" :markdown="articleData.content" :textDirection="'left'"
-          :tabSize="4" :imgPicker="imgPicker" @save="saveArticle" />
+
+
+      <div v-else style="display: flex;justify-content: center;align-items: center;width: 100%;height: 100%;">
+        <svg aria-hidden="true" style="width: 80px;height: 80px;color: #cdcdcd;">
+          <use :xlink:href="'#' + Folder1.id" />
+        </svg>
       </div>
-
     </div>
-    <div v-else style="display: flex;justify-content: center;align-items: center;width: 100%;">
-      <svg aria-hidden="true" style="width: 80px;height: 80px;color: #cdcdcd;">
-        <use :xlink:href="'#' + Folder1.id" />
-      </svg>
-    </div>
-
-
 
     <el-dialog v-model="cover.show" width="400" title="设置封面图">
       <div style="margin-bottom: 10px;">
@@ -163,19 +175,32 @@ import {
 } from '@/api';
 import { Plus } from '@element-plus/icons-vue';
 
-import { nextTick, onMounted, reactive, ref, getCurrentInstance } from 'vue';
+import { nextTick, onMounted, reactive, ref, getCurrentInstance, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { removeToken } from "@/util/cookies";
 import { menusEvent } from 'vue3-menus';
 import headSrc from "@/assets/images/head.png";
 import { ElMessage } from "element-plus";
-import { openFileDialog } from "@/util";
-
+import { openFileDialog, formatDateTime } from "@/util";
 import Exit from "@/icons/svg/exit.svg";
 import Addfolder from "@/icons/svg/addfolder.svg";
 import Folder from "@/icons/svg/folder.svg";
 import Folder1 from "@/icons/svg/folder1.svg";
 import Word from "@/icons/svg/word.svg";
+import { Mobile } from "@/constants/app-key"
+import { useAppStore } from "@/store/modules/app"
+const appStore = useAppStore()
+
+/** 定义计算属性 layoutClasses，用于控制布局的类名 */
+const layoutClasses = computed(() => {
+  return {
+    hideSidebar: !appStore.sidebar.opened,
+    openSidebar: appStore.sidebar.opened,
+    hideLeftContent: !appStore.leftContent.opened,
+    openLeftContent: appStore.leftContent.opened,
+    mobile: appStore.device === Mobile
+  }
+})
 
 
 const { appContext } = getCurrentInstance();
@@ -391,6 +416,7 @@ const doubleClick = async (item) => {
       name: element.name,
       id: element.id,
       rename: false,
+      time: element.updateTime
     });
   });
 
@@ -402,6 +428,7 @@ const doubleClick = async (item) => {
         name: element.title,
         id: element.id,
         rename: false,
+        time: element.updateTime
       });
     });
   }
@@ -439,6 +466,7 @@ const backClick = async () => {
       name: element.name,
       id: element.id,
       rename: false,
+      time: element.updateTime
     });
   });
 
@@ -454,6 +482,7 @@ const backClick = async () => {
         name: element.title,
         id: element.id,
         rename: false,
+        time: element.updateTime
       });
     });
   }
@@ -498,6 +527,7 @@ const getCategoryData = async () => {
       name: element.name,
       id: element.id,
       rename: false,
+      time: element.updateTime
     });
   });
 
@@ -511,6 +541,7 @@ const getCategoryData = async () => {
       name: element.title,
       id: element.id,
       rename: false,
+      time: element.updateTime
     });
   });
 
@@ -577,6 +608,7 @@ const addArticle = async () => {
     name: '新建文档',
     id: articleId,
     rename: true,
+    time: formatDateTime(new Date())
   });
 
   currentSelect.id = articleId;
@@ -634,6 +666,7 @@ const addCategory = async () => {
     name: categoryName,
     id: categoryId,
     rename: true,
+    time: formatDateTime(new Date())
   });
 
   currentSelect.id = categoryId;
@@ -750,13 +783,43 @@ const exitBlog = () => {
   router.push({ 'path': '/index' });
 };
 
+
+const switchLectContent = () => {
+  appStore.toggleLeftContent()
+}
+
+const handleClickOutside = () => {
+  appStore.closeLeftContent(false)
+}
+
 onMounted(() => {
+
+  window.addEventListener("keydown", function (e) {
+    //可以判断是不是mac，如果是mac,ctrl变为花键
+    //event.preventDefault() 方法阻止元素发生默认的行为。
+    if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+      e.preventDefault();
+      if (currentSelect.type == 'article') {
+        saveArticle()
+        // console.log('Ctrl + S')
+      }
+    }
+  }, false);
 
   getCategoryData();
 });
 </script>
 
 <style lang="scss" scoped>
+.app-container {
+  min-width: 100%;
+  min-height: 100%;
+  background-color: #fff;
+  // padding: 20px;
+}
+
+
+
 @media (min-width: 1024px) {
   #sample {
     display: flex;
@@ -767,169 +830,187 @@ onMounted(() => {
   }
 }
 
-.home {
-  width: 100%;
+.left {
+  min-width: 290px;
+  max-width: 290px;
+  position: fixed;
+  z-index: 2;
   height: 100vh;
-  overflow: hidden;
-  min-height: 100%;
-  display: flex;
-  flex-direction: row;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: #ffffff;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: all 0.3s;
+  border-right: 1px solid #E4E7ED;
 
-  .left {
-    min-width: 290px;
-    max-width: 290px;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 10px;
+  &-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+
+    img {
+      height: 70px;
+      width: 70px;
+      border: none;
+      border-radius: 50%;
+      user-select: none;
+      -webkit-user-drag: none;
+
+
+    }
+  }
+
+  &-add {
     width: 100%;
     box-sizing: border-box;
-    min-height: 100vh;
-    background: #ffffff;
-    user-select: none;
-    -webkit-user-drag: none;
-
-    &-head {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 80px;
-
-      img {
-        height: 70px;
-        width: 70px;
-        border: none;
-        border-radius: 50%;
-        user-select: none;
-        -webkit-user-drag: none;
-
-
-      }
-    }
-
-    &-add {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 20px 30px;
-    }
-
-    &-box {
-      width: 100%;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      cursor: default;
-
-      &-back {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        height: 24px;
-        align-items: center;
-        margin-bottom: 10px;
-
-        .box {
-          min-width: 30px;
-          text-align: center;
-          font-size: 14px;
-        }
-
-        .title {
-          flex: 1;
-          text-align: center;
-          opacity: 0.8;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 700;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          color: #232d47;
-          // margin: 0 55px;
-        }
-      }
-
-      &-item {
-        display: flex;
-        flex-direction: column;
-        // width: 100%;
-        border-bottom: 1px solid #f0f3f5;
-        padding: 13px 8px;
-        gap: 4px;
-
-        .item-header {
-          display: flex;
-          flex-direction: row;
-
-          .item-title {
-            color: #232d47;
-            font-size: 13px;
-            flex: 1;
-            font-weight: 500;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            word-break: break-all;
-            white-space: nowrap;
-            padding-right: 10px;
-          }
-        }
-
-        .item-footer {
-          width: 100%;
-          text-align: left;
-          color: #a9b2c2;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          line-height: 20px;
-          font-size: 12px;
-        }
-      }
-
-      &-item-select {
-        background-color: rgb(244, 246, 247);
-        border-radius: 10px;
-        border-bottom: 1px solid #ffffff;
-      }
-
-      &-item:hover {
-        border-bottom: 1px solid #ffffff;
-        background-color: rgb(244, 246, 247);
-        border-radius: 10px;
-      }
-    }
+    padding: 20px 30px;
   }
 
-  .main {
-    flex: 1;
+  &-box {
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    padding-left: 1px;
-    border-left: 1px solid #ddd;
-  }
+    cursor: default;
 
-  .tools {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    gap: 20px;
+    &-back {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      height: 24px;
+      align-items: center;
+      margin-bottom: 10px;
 
-  }
+      .box {
+        min-width: 30px;
+        text-align: center;
+        font-size: 14px;
+        cursor: pointer;
+      }
 
-  :deep(.tools) {
-    .el-input {
-      .el-input__wrapper {
-        box-shadow: none !important;
+      .title {
+        flex: 1;
+        text-align: center;
+        opacity: 0.8;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #232d47;
+        // margin: 0 55px;
       }
     }
-  }
 
-  .detail-editor {
-    flex: 1;
+    &-item {
+      display: flex;
+      flex-direction: column;
+      // width: 100%;
+      border-bottom: 1px solid #f0f3f5;
+      padding: 13px 8px;
+      gap: 4px;
+
+      .item-header {
+        display: flex;
+        flex-direction: row;
+
+        .item-title {
+          color: #232d47;
+          font-size: 13px;
+          flex: 1;
+          font-weight: 500;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          word-break: break-all;
+          white-space: nowrap;
+          padding-right: 10px;
+        }
+      }
+
+      .item-footer {
+        width: 100%;
+        text-align: left;
+        color: #a9b2c2;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 20px;
+        font-size: 12px;
+      }
+    }
+
+    &-item-select {
+      background-color: rgb(244, 246, 247);
+      border-radius: 4px;
+      border-bottom: 1px solid #ffffff;
+    }
+
+    &-item:hover {
+      border-bottom: 1px solid #ffffff;
+      background-color: rgb(244, 246, 247);
+      border-radius: 4px;
+    }
   }
+}
+
+.right {
+  position: relative;
+  display: block;
+  margin-left: 290px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s;
+}
+
+.setting-content {
+  cursor: pointer;
+  position: absolute;
+  width: 12px;
+  height: 44px;
+  left: 290px;
+  bottom: 60px;
+  z-index: 100;
+  border-radius: 0 12px 12px 0;
+  background: rgba(98, 110, 133, .4);
+  text-align: center;
+  z-index: 100;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  transition: all 0.3s;
+}
+
+
+.tools {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 20px;
+
+}
+
+:deep(.tools) {
+  .el-input {
+    .el-input__wrapper {
+      box-shadow: none !important;
+    }
+  }
+}
+
+.detail-editor {
+  flex: 1;
 }
 
 .add-box {
@@ -1008,18 +1089,24 @@ onMounted(() => {
   }
 }
 
+
 .head-box {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  // gap: 10px;
 
   div {
-    height: 24px;
-    line-height: 24px;
+    height: 34px;
+    line-height: 34px;
     display: flex;
     align-items: center;
     gap: 6px;
     cursor: default;
+    padding: 0 10px;
+  }
+
+  div:hover {
+    background-color: #f0f3f5;
   }
 }
 
@@ -1028,5 +1115,71 @@ onMounted(() => {
   box-sizing: border-box;
   min-width: 460px;
   height: 100%;
+}
+
+
+
+
+.hideSidebar {
+  .left {
+    left: 0 !important;
+    transition: all 0.3s;
+  }
+}
+
+.hideLeftContent {
+  .left {
+    left: 0px !important;
+    transition: all 0.3s;
+    transform: translate3d(-290px, 0, 0);
+  }
+
+  .right {
+    margin-left: 0;
+  }
+
+  .setting-content {
+    left: 0px !important;
+    transition: all 0.3s;
+  }
+}
+
+
+.mobile {
+  .left {
+    left: 0px !important;
+    transition: all 0.3s;
+    // transform: translate3d(calc(0px - var(--v3-sidebar-width) - 20px), 0, 0);
+  }
+
+  .right {
+    margin-left: 0;
+  }
+
+  // .setting-content {
+  //   left: -20px !important;
+  //   transition: all 0.3s;
+  // }
+}
+
+
+
+.drawer-bg {
+  background-color: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.content-enter-active {
+  animation: fadeIn 1s;
+}
+
+.content-leave-active {
+  animation: fadeOut 0.3s;
 }
 </style>

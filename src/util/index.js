@@ -155,6 +155,18 @@ export const deepClone = obj => {
 }
 
 
+
+/** 格式化时间 */
+export const formatDateTime = (time) => {
+  return time ? dayjs(new Date(time)).format("YYYY-MM-DD HH:mm:ss") : "N/A"
+}
+
+/** 格式化时间 */
+export const formatDate = (time) => {
+  return time ? dayjs(new Date(time)).format("YYYY-MM-DD") : "N/A"
+}
+
+
 /**
  * 打开文件夹
  */

@@ -170,11 +170,11 @@ const toSave = () => {
                     <use :xlink:href="'#' + Header6.id" />
                 </svg>
             </li>
-            <li class="__download" @click="toExports" title="save">
+            <!-- <li class="__download" @click="toExports" title="save">
                 <svg aria-hidden="true">
                     <use :xlink:href="'#' + Save.id" />
                 </svg>
-            </li>
+            </li> -->
             <!-- <li class="__save" @click="toSave" title="export Html File">
                 <svg aria-hidden="true">
                     <use :xlink:href="'#' + Save.id" />

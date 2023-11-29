@@ -34,6 +34,7 @@
     "mermaid": "^8.0.0",
     "nprogress": "^0.2.0",
     "path-browserify": "^1.0.1",
+    "pinia": "^2.1.7",
     "popper.js": "^1.15.0",
     "prismjs": "^1.16.0",
     "snabbdom": "^3.3.1",
