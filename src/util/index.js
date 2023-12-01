@@ -1,3 +1,5 @@
+import dayjs from "dayjs"
+
 export const delay = time => {
   let timerId
   let rejectFn

@@ -11,7 +11,6 @@ export const getToken = () => {
   const token = Cookies.get(CacheKey.TOKEN)
   
   if (token != void(0)) {
-    console.log(token)
     let userToken = jwtDecode(token)
     if (!diffTime(userToken.exp)) {
       return token

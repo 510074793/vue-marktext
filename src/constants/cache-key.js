@@ -1,4 +1,4 @@
-const SYSTEM_NAME = "hc-blog"
+const SYSTEM_NAME = "blog-clm-show"
 
 /** 缓存数据时用到的 Key */
 class CacheKey {

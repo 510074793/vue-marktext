@@ -101,7 +101,7 @@
       </el-icon>
     </div>
     <div class="right">
-      <div v-if="currentSelect.type == 'article'">
+      <div v-if="currentSelect.type == 'article'" style="height: 100%;display: flex;flex-direction: column;">
         <div class="tools">
           <el-input :border="false" v-model="articleData.title" style="flex: 1;"
             input-style="font-weight: 600;font-size:20px;letter-spacing: 1px;" @blur="saveTitle"
@@ -827,6 +827,7 @@ onMounted(() => {
     place-items: center;
     width: 100%;
     height: 100%;
+    flex: 1;
   }
 }
 
