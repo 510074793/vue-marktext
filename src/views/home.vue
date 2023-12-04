@@ -108,11 +108,11 @@
             @keydown.enter="saveTitle">
           </el-input>
           <div>
-            <el-button @click="addCover" type="success">图片</el-button>
-            <el-button @click="updateStatus" type="warning">{{
+            <el-button @click="addCover" type="success" style="width: 90px;">图片</el-button>
+            <el-button @click="updateStatus" type="warning" style="width: 90px;">{{
               articleData.status == 1 ? '已发布' : '待发布'
             }}</el-button>
-            <el-button @click="saveArticle" type="primary">保存</el-button>
+            <el-button @click="saveArticle" type="primary" style="width: 90px;">保存</el-button>
           </div>
         </div>
         <div id="sample">
@@ -138,7 +138,7 @@
       </div>
       <div v-if="cover.type == '链接'" style="display: flex;gap: 10px;">
         <el-input v-model="cover.src" placeholder="请输入一个图片链接" />
-        <el-button type="primary" @click="saveCover">确定</el-button>
+        <el-button type="primary" @click="saveCover" style="width: 90px;">确定</el-button>
       </div>
       <el-upload v-else class="upload-demo" drag action="https://img.clm.show/api/v1/upload" :limit="1"
         :show-file-list="false" :auto-upload="true" :on-success="onUploadSuccess" :on-error="onUploadError">
@@ -147,6 +147,11 @@
           拖放一张图片至此<em>浏览图像</em>
         </div>
       </el-upload>
+
+      <el-image v-show="cover.src!=''" style="width: 100%;margin-top: 10px;" :src="cover.src" fit="contain">
+
+      </el-image>
+
     </el-dialog>
 
   </div>
@@ -751,6 +756,7 @@ const onSave = async (v) => {
 const addCover = () => {
   // 本地上传，直接放链接，裁剪上传
   cover.show = true;
+  cover.src = articleData.cover
 };
 
 const onUploadSuccess = async (e) => {
